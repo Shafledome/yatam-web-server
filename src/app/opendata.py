@@ -7,6 +7,8 @@ monumentsJSON = 'https://datosabiertos.malaga.eu/recursos/urbanismoEInfraestruct
 trainingParkJSON = 'https://datosabiertos.malaga.eu/recursos/deportes/equipamientos/da_deportesZonasMusculacion-4326.geojson'
 bikePointJSON = 'https://datosabiertos.malaga.eu/recursos/transporte/EMT/EMTocupestacbici/ocupestacbicifiware.json'
 libraryJSON = 'https://datosabiertos.malaga.eu/recursos/urbanismoEInfraestructura/equipamientos/da_cultura_ocio_bibliotecas-4326.geojson'
+cinemaJSON = 'https://datosabiertos.malaga.eu/recursos/urbanismoEInfraestructura/equipamientos/da_cultura_ocio_cines-4326.geojson'
+theaterJSON = 'https://datosabiertos.malaga.eu/recursos/urbanismoEInfraestructura/equipamientos/da_cultura_ocio_teatros-4326.geojson'
 
 
 def download_open_data(url):
@@ -18,8 +20,21 @@ def download_open_data(url):
     return response.json()
 
 
-def get_all_museum_data():
-    data = download_open_data(museumJSON)
+def parse_json_data(leisure_type: str):
+    switcher = {
+        'MUSEUM': museumJSON,
+        'ARTGALLERY': artGalleryJSON,
+        'DOGPARK': dogParkJSON,
+        'MONUMENTS': monumentsJSON,
+        'TRAINING': trainingParkJSON,
+        'LIBRARY': libraryJSON,
+        'CINEMA': cinemaJSON,
+        'THEATER': theaterJSON
+    }
+    func = switcher.get(leisure_type, lambda: 'Invalid type')
+    json_url = func()
+
+    data = download_open_data(json_url)
     features = data['features']
     result = {}
 
@@ -27,12 +42,13 @@ def get_all_museum_data():
         longitude = feature['geometry']['coordinates'][0]
         latitude = feature['geometry']['coordinates'][1]
         coordinates = {'coordinates': [latitude, longitude]}
-        id_museum = features['properties']['ID']
+        id_leisure = features['properties']['ID']
         name = features['properties']['NOMBRE']
         description = features['properties']['DESCRIPCION']
         address = features['properties']['DIRECCION']
         url = features['properties']['URL']
         email = features['properties']['EMAIL']
         schedule = features['properties']['HORARIOS']
-        result[id_museum] = (name, description, address, coordinates, email, url, schedule)
+        result[id_leisure] = (name, description, address, coordinates, email, url, schedule)
 
+    return result
