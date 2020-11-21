@@ -13,28 +13,28 @@ db = firebase.database()
 # e.g get(user, key) returns an object
 # e.g get(user) returns a list
 # e.g get(user, order=order) returns an ordered list
-def get(entity, key=None, order=None):
+def get(entry, key=None, order=None):
     o = None
-    if key != None:
-        o = db.child(entity).child(key).get()
-    elif order != None:
-        o = db.child(entity).order_by_child(order).get()
+    if key is not None:
+        o = db.child(entry).child(key).get()
+    elif order is not None:
+        o = db.child(entry).order_by_child(order).get()
     else:
-        o = db.child(entity).get()
+        o = db.child(entry).get()
     return o
 
 
 # key is the primary key of the object (e.g. email in the User object)
-def create(entity, key, data):
-    db.child(entity).child(key).set(data)
+def create(entry, key, data):
+    db.child(entry).child(key).set(data)
 
 
-def update(entity, key, values):
-    db.child(entity).child(key).update(values)
+def update(entry, key, values):
+    db.child(entry).child(key).update(values)
 
 
-def delete(entity, key):
-    db.child(entity).child(key).remove()
+def delete(entry, key):
+    db.child(entry).child(key).remove()
 
 
 '''
