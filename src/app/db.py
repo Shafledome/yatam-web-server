@@ -3,24 +3,49 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-config = os.getenv('CONFIG')
+config = os.getenv('FIREBASECONFIG')
 
 firebase = pyrebase.initialize_app(config)
 
 db = firebase.database()
 
+
+# e.g get(user, key) returns an object
+# e.g get(user) returns a list
+# e.g get(user, order=order) returns an ordered list
+def get(entity, key=None, order=None):
+    o = None
+    if key != None:
+        o = db.child(entity).child(key).get()
+    elif order != None:
+        o = db.child(entity).order_by_child(order).get()
+    else:
+        o = db.child(entity).get()
+    return o
+
+
+# key is the primary key of the object (e.g. email in the User object)
+def create(entity, key, data):
+    db.child(entity).child(key).set(data)
+
+
+def update(entity, key, values):
+    db.child(entity).child(key).update(values)
+
+
+def delete(entity, key):
+    db.child(entity).child(key).remove()
+
+
 '''
 How no relational DB works and how to use pyrebase:
-
 There is no select from multiple tables
 There is no delete/update with multiple data
-
     data = {
         "name": "sera"
         "username": "seraa"
         "email": "sera@sera.com"
         } 
-
     - db.child("users").push(data)
     It will insert a new child in the database called "users" if it does not exists, next will ad a new random key
     and insert all the data to it as a child.
@@ -30,7 +55,6 @@ There is no delete/update with multiple data
     
     - db.child("users").child("SeraKey").update({"name": "evil sera"})
     To update data for an existing entry
-
     - db.child("users").child("SeraKey").remove()
     To delete data from existing entry
     
@@ -78,6 +102,3 @@ There is no delete/update with multiple data
     This query returns data ordered by their key
     
 '''
-
-db.child("names").push({"name": "sera"})
-
