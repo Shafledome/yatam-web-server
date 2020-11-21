@@ -32,3 +32,9 @@
 ## How to "Write" in the project
 * Commits messages and code in English
 * Code in snake_case NOT camelCase
+* Use PEP-8 style guide for Python https://www.python.org/dev/peps/pep-0008/
+    * Adding two empty lines before a function
+    * Adding three empty lines before 'main'
+    * Adding whitespace between # and text in comments
+    * Removing redundant parentheses
+    * Etc.
