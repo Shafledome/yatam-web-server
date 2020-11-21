@@ -9,6 +9,7 @@
 	- Flask: *pip install flask*
 	- Pyrebase: *pip install pyrebase*
 	- Dotenv: *pip install -U python-dotenv*
+	- Flask CORS: pip install -U flask-cors
 
 ## How to configure .env file with the Firebase config
 
@@ -38,3 +39,7 @@
     * Adding whitespace between # and text in comments
     * Removing redundant parentheses
     * Etc.
+    
+
+## Flask HTTP methods
+https://pythonbasics.org/flask-http-methods/
