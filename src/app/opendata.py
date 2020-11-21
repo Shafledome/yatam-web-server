@@ -31,8 +31,7 @@ def parse_json_data(leisure_type: str):
         'CINEMA': cinemaJSON,
         'THEATER': theaterJSON
     }
-    func = switcher.get(leisure_type, lambda: 'Invalid type')
-    json_url = func()
+    json_url = switcher.get(leisure_type, lambda: 'Invalid type')
 
     data = download_open_data(json_url)
     features = data['features']
@@ -42,13 +41,17 @@ def parse_json_data(leisure_type: str):
         longitude = feature['geometry']['coordinates'][0]
         latitude = feature['geometry']['coordinates'][1]
         coordinates = {'coordinates': [latitude, longitude]}
-        id_leisure = features['properties']['ID']
-        name = features['properties']['NOMBRE']
-        description = features['properties']['DESCRIPCION']
-        address = features['properties']['DIRECCION']
-        url = features['properties']['URL']
-        email = features['properties']['EMAIL']
-        schedule = features['properties']['HORARIOS']
+        id_leisure = feature['properties']['ID']
+        name = feature['properties']['NOMBRE']
+        description = feature['properties']['DESCRIPCION']
+        address = feature['properties']['DIRECCION']
+        url = feature['properties']['URL']
+        email = feature['properties']['EMAIL']
+        schedule = feature['properties']['HORARIOS']
         result[id_leisure] = (name, description, address, coordinates, email, url, schedule)
 
     return result
+
+
+if __name__ == '__main__':
+    print(parse_json_data('DOGPARK'))
