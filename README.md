@@ -27,3 +27,8 @@
 3. Change the words between " ": *[apiKey]* (not deleting " ") with the real configuration in YATAM Firebase page -> Configuration -> Firebase SDK snipett CDN.
 4. Change filename from env to .env
 5. .gitignore file would ignore this file to upload it, but do not try to add it to the commit...
+
+
+## How to "Write" in the project
+* Commits messages and code in English
+* Code in snake_case NOT camelCase
