@@ -48,7 +48,8 @@ def parse_json_data(leisure_type: str):
         url = feature['properties']['URL']
         email = feature['properties']['EMAIL']
         schedule = feature['properties']['HORARIOS']
-        result[id_leisure] = (name, description, address, coordinates, email, url, schedule)
+        data = {'name': name, 'description': description, 'address': address, 'url': url, 'email': email, 'schedule': schedule}
+        result[id_leisure] = data
 
     return result
 
