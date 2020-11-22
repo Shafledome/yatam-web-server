@@ -6,7 +6,6 @@ import utilities.db as db
 
 
 class User:
-
     def __init__(self, email, username=None, password=None):
         if username is None and password is None:
             u = self.search_by_email(email)

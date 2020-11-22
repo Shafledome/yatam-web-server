@@ -6,7 +6,6 @@ import utilities.db as db
 
 
 class TrophyList:
-
     def __init__(self, trophy_id, name=None, text=None):
         if name is None and text is None:
             t = db.get('trophies', trophy_id)
@@ -14,7 +13,7 @@ class TrophyList:
             self.name = t['name']
             self.text = t['text']
         else:
-            db.create('trophies', trophy_id, {'name': name; 'text': text})
+            db.create('trophies', {'name': name, 'text': text})
             self.trophy_id = trophy_id
             self.name = name
             self.text = text
@@ -37,20 +36,21 @@ class TrophyList:
         db.update('trophies', self.trophy_id, {'text': text})
 
     @staticmethod
-    def get_dict():
+    def get_dict(trophy_id):
         return db.get('trophies', trophy_id)
 
     @staticmethod
     def search_by_trophy_id(trophy_id):
         return db.get('trophies', trophy_id)
 
+    @staticmethod
     def search_by_name(name):
-            data = None
-            d = db.get('trophies')
-            for t in d:
-                data = d[t]
-                if data['name'] == name:
-                    break
-                else:
-                    data = None
-            return data
+        data = None
+        d = db.get('trophies')
+        for t in d:
+            data = d[t]
+            if data['name'] == name:
+                break
+            else:
+                data = None
+        return data
