@@ -29,8 +29,7 @@
 4. Change filename from env to .env
 5. .gitignore file would ignore this file to upload it, but do not try to add it to the commit...
 
-
-## How to "Write" in the project
+## How to "Code" in the project
 * Commits messages and code in English
 * Code in snake_case NOT camelCase
 * Use PEP-8 style guide for Python https://www.python.org/dev/peps/pep-0008/
@@ -39,7 +38,11 @@
     * Adding whitespace between # and text in comments
     * Removing redundant parentheses
     * Etc.
-    
 
 ## Flask HTTP methods
 https://pythonbasics.org/flask-http-methods/
+
+## How to run Servers files
+1. Navigate to *~/src/app* in terminal
+2. Use *python [filename]* where *[filename]* can be *server_opendata.py* or *server_db.py*
+3. Open your browser an type *127.0.0.1/30006/<your-query>* without '>' and '<'
