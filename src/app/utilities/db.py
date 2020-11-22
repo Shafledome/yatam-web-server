@@ -16,11 +16,11 @@ db = firebase.database()
 def get(entry, key=None, order=None):
     o = None
     if key is not None:
-        o = db.child(entry).child(key).get()
+        o = db.child(entry).child(key).get().val()
     elif order is not None:
-        o = db.child(entry).order_by_child(order).get()
+        o = db.child(entry).order_by_child(order).get().val()
     else:
-        o = db.child(entry).get()
+        o = db.child(entry).get().val()
     return o
 
 
