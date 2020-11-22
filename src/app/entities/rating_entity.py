@@ -25,8 +25,36 @@ class Rating:
     def get_leisure_id(self):
         return self.leisure_id
 
+    # Primary key doesn't have set method
+
     def set_user_email(self, user_email):
         self.user_email = user_email
 
     def set_leisure_id(self, leisure_id):
         self.leisure_id = leisure_id
+
+    @staticmethod
+    def get_dict():
+        return db.get('rating', rating_id)
+
+    def search_by_user(user_email):
+        data = None
+        d = db.get('rating')
+        for r in d:
+            data = d[r]
+            if data['user_email'] == user_email:
+                break
+            else:
+                data = None
+        return data
+
+    def search_by_leisure(leisure_id):
+        data = None
+        d = db.get('rating')
+        for r in d:
+            data = d[r]
+            if data['leisure_id'] == leisure_id:
+                break
+            else:
+                data = None
+        return data
