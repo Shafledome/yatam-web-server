@@ -10,23 +10,19 @@ firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
 
-# e.g get(user, key) returns an object
-# e.g get(user) returns a list
-# e.g get(user, order=order) returns an ordered list
-def get(entry, key=None, order=None):
-    o = None
-    if key is not None:
-        o = db.child(entry).child(key).get().val()
-    elif order is not None:
-        o = db.child(entry).order_by_child(order).get().val()
+# e.g get(user) returns a dictionary
+# e.g get(user, order=order) returns an ordered dictionary
+def get_dict(entry, order=None):
+    d = None
+    if order is not None:
+        d = db.child(entry).order_by_child(order).get().val()
     else:
-        o = db.child(entry).get().val()
-    return o
+        d = db.child(entry).get().val()
+    return d
 
 
-# key is the primary key of the object (e.g. email in the User object)
-def create(entry, key, data):
-    db.child(entry).child(key).set(data)
+def create(entry, data):
+    db.child(entry).push(data)
 
 
 def update(entry, key, values):
@@ -35,6 +31,28 @@ def update(entry, key, values):
 
 def delete(entry, key):
     db.child(entry).child(key).remove()
+
+
+def search_key(entry, attribute, value):
+    return search(entry, attribute, value, 'key')
+
+
+def search_values(entry, attribute, value):
+    return search(entry, attribute, value, 'value')
+
+
+def search(entry, attribute, value, ret):
+    data = None
+    d = db.get(entry)
+    for u in d:
+        data = d[u]
+        if data[attribute] == value:
+            if ret == 'key':
+                data = u
+            break
+        else:
+            data = None
+    return data
 
 
 '''
