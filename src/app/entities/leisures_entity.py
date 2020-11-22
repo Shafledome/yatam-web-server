@@ -7,22 +7,15 @@ We have different types of leisures. Museum, art gallery, dog park, monuments, t
 theater. To ask it to the opendata.py file, we will ask it in UPPERCASE and without white spaces.
 '''
 
-# dictionary entry:
-entry = 'MUSEUM'
 
-all_data = opendata.parse_json_data('MUSEUM')
+class LeisureList:
+    def __init__(self, leisure_type: str):
+        self.leisures = opendata.parse_json_data(leisure_type)
 
-
-def get_all_data():
-    return all_data
-
-
-def get_museum_by_id(museum_id: int = None):
-    if museum_id is None:
-        raise ValueError('Id is None.')
-    else:
-        return all_data[museum_id]
+    def get_by_id(self, leisure_id: int):
+        return self.leisures.get(leisure_id)
 
 
 if __name__ == '__main__':
-    print(get_museum_by_id(710))
+    museum_list = LeisureList('MUSEUM')
+    print(museum_list.get_by_id(710))
