@@ -35,7 +35,7 @@ class Rating:
 
     @staticmethod
     def get_dict():
-        return db.get('rating', rating_id)
+        return db.get('rating')
 
     def search_by_user(user_email):
         data = None
