@@ -17,13 +17,16 @@ class LeisureList:
         return self.leisures
 
     def get_by_id(self, leisure_id: int):
-        return self.leisures.get(leisure_id)
+        if isinstance(leisure_id, int):
+            return self.leisures.get(leisure_id)
+        else:
+            return leisure_id
 
     def get_id_by_name(self, leisure_name: str):
         for l_id in self.leisures:
             if self.leisures.get(l_id)['name'] == leisure_name:
                 return l_id
-        return f'{leisure_name} not found in {self.leisure_type.lower()}s.'
+        return f'"{leisure_name}" not found in {self.leisure_type.lower()}s.'
 
     def get_id_by_coordinates(self, latitude: float, longitude: float):
         for l_id in self.leisures:
