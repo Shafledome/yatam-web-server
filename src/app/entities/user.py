@@ -34,7 +34,8 @@ class User:
 
     def set_password(self, password):
         self.password = password
-        db.update('users', self.email, {'password': password})
+        key = db.search_key('users', 'email', self.email)
+        db.update('users', key, {'password': password})
 
     @staticmethod
     def get_dict():
