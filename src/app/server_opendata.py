@@ -14,14 +14,16 @@ CORS(app)
 # metadata headers: content-type: application/json
 headers = {'content-type': 'application/json'}
 
+
 # Returns JSON with data about a leisure by it's type and name
 @app.route('/leisures/<string: leisure_type>/<string: leisure_name>')
 def get_leisure_by_type_and_name(leisure_type, leisure_name):
     try:
         # ToDo: Petition Entity parsed data
+        print('hola')
     except ValueError:
         return Response(json.dumps(
             f'Error 404. Leisure {leisure_name} with type {leisure_type} not found.',
-            headers= headers,
-            status= 200))
+            headers=headers,
+            status=200))
     # ToDo: Return Response with data and status
