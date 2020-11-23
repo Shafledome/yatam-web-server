@@ -46,7 +46,7 @@ class User:
     def search_by_email(email):
         r = db.search_values('users', 'email', email)
         if r is None:
-            return f'No user has been found with email = "{email}".'
+            return f'No user has been found with email : "{email}".'
         else:
             return r
 
@@ -54,6 +54,6 @@ class User:
     def search_by_username(username):
         r = db.search_values('users', 'username', username)
         if r is None:
-            return f'No user has been found with username = "{username}".'
+            return f'No user has been found with username : "{username}".'
         else:
             return r

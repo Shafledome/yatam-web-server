@@ -55,7 +55,7 @@ class Rating:
         if r is not None:
             return r
         else:
-            return f'A rating with user id "{user}" has not been found.'
+            return f'No rating has been found with user id : "{user}".'
 
     @staticmethod
     def search_by_leisure(leisure):
@@ -63,7 +63,7 @@ class Rating:
         if r is not None:
             return r
         else:
-            return f'A rating with leisure id "{leisure}" has not been found.'
+            return f'No rating has been found with leisure id : "{leisure}".'
 
     @staticmethod
     def search_by_user_and_leisure(user, leisure):
@@ -78,4 +78,4 @@ class Rating:
         if data is not None:
             return data
         else:
-            return f'A rating with user id "{user}" and leisure id "{leisure}" has not been found.'
+            return f'No rating has been found with user id : "{user}" and leisure id : "{leisure}".'

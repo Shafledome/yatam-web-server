@@ -1,6 +1,7 @@
 from flask import Flask, request, Response, jsonify, json
 from flask_cors import CORS, cross_origin
 from entities.leisures_entity import LeisureList
+from entities.traffic_cuts_entity import TrafficList
 
 
 '''
@@ -70,13 +71,14 @@ def get_leisure_by_type_and_url(leisure_type, leisure_url):
 @app.route('/traffic_cuts/id/<int:traffic_cuts_name>')
 def get_traffic_cuts_id(traffic_cuts_name):
     traffic_cuts = TrafficList()
-    result = traffic_cuts.get_by_name(traffic_cuts_name)
+    result = traffic_cuts.get_by_id(traffic_cuts.get_id_by_name(traffic_cuts_name))
     status = 200
     if not isinstance(result, dict):
         status = 404
         if result is None:
             result = f'Error 404. ID: {traffic_cuts_name} was not found.'
     return Response(json.dumps(result), mimetype=mimetype, status=status)
+
 
 # Returns JSON with data about a traffic cut by its id
 @app.route('/traffic_cuts/id/<int:traffic_cuts_id>')
