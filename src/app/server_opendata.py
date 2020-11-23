@@ -20,7 +20,7 @@ CORS(app)
 mimetype = 'application/json'
 
 
-# Returns JSON with data about a leisure by it's type and name
+# Returns JSON with data about a leisure by its type and name
 @app.route('/leisures/<string:leisure_type>/name/<string:leisure_name>')
 def get_leisure_by_type_and_name(leisure_type, leisure_name):
     leisures = LeisureList(leisure_type.upper())
@@ -31,7 +31,7 @@ def get_leisure_by_type_and_name(leisure_type, leisure_name):
     return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 
-# Returns JSON with data about a leisure by it's type and id
+# Returns JSON with data about a leisure by its type and id
 @app.route('/leisures/<string:leisure_type>/id/<int:leisure_id>')
 def get_leisure_by_type_and_id(leisure_type, leisure_id):
     leisures = LeisureList(leisure_type.upper())
@@ -44,7 +44,7 @@ def get_leisure_by_type_and_id(leisure_type, leisure_id):
     return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 
-# Returns JSON with data about a leisure by it's type and address
+# Returns JSON with data about a leisure by its type and address
 @app.route('/leisures/<string:leisure_type>/address/<string:leisure_address>')
 def get_leisure_by_type_and_address(leisure_type, leisure_address):
     leisures = LeisureList(leisure_type.upper())
@@ -55,7 +55,7 @@ def get_leisure_by_type_and_address(leisure_type, leisure_address):
     return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 
-# Returns JSON with data about a leisure by it's type and url
+# Returns JSON with data about a leisure by its type and url
 @app.route('/leisures/<string:leisure_type>/url/<string:leisure_url>')
 def get_leisure_by_type_and_url(leisure_type, leisure_url):
     leisures = LeisureList(leisure_type.upper())
@@ -63,6 +63,31 @@ def get_leisure_by_type_and_url(leisure_type, leisure_url):
     status = 200
     if not isinstance(result, dict):
         status = 404
+    return Response(json.dumps(result), mimetype=mimetype, status=status)
+
+
+# Returns JSON with data about a traffic cut by its name
+@app.route('/traffic_cuts/id/<int:traffic_cuts_name>')
+def get_traffic_cuts_id(traffic_cuts_name):
+    traffic_cuts = TrafficList()
+    result = traffic_cuts.get_by_name(traffic_cuts_name)
+    status = 200
+    if not isinstance(result, dict):
+        status = 404
+        if result is None:
+            result = f'Error 404. ID: {traffic_cuts_name} was not found.'
+    return Response(json.dumps(result), mimetype=mimetype, status=status)
+
+# Returns JSON with data about a traffic cut by its id
+@app.route('/traffic_cuts/id/<int:traffic_cuts_id>')
+def get_traffic_cuts_id(traffic_cuts_id):
+    traffic_cuts = TrafficList()
+    result = traffic_cuts.get_by_id(traffic_cuts_id)
+    status = 200
+    if not isinstance(result, dict):
+        status = 404
+        if result is None:
+            result = f'Error 404. ID: {traffic_cuts_id} was not found.'
     return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 
