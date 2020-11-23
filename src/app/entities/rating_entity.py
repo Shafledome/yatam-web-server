@@ -46,6 +46,10 @@ class Rating:
         db.update('ratings', key, {'text': text})
 
     @staticmethod
+    def delete(key):
+        db.delete('ratings', key)
+
+    @staticmethod
     def get_dict():
         return db.get_dict('ratings')
 

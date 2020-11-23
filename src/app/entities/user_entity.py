@@ -45,6 +45,10 @@ class User:
         db.update('users', key, {'password': password})
 
     @staticmethod
+    def delete(key):
+        db.delete('users', key)
+
+    @staticmethod
     def get_dict():
         return db.get_dict('users')
 
