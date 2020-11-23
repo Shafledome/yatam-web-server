@@ -1,5 +1,5 @@
 ## How to Create Python Virtual Environment and install all dependencies in it
-
+#### Linux
  1.  Having installed in Python *virtualenv:*
 	 - Open command prompt and use: *pip install virtualenv*
 2. Change directory to your local repository folder in the command prompt.
@@ -10,6 +10,18 @@
 	- Pyrebase: *pip install pyrebase*
 	- Dotenv: *pip install -U python-dotenv*
 	- Flask CORS: *pip install -U flask-cors*
+### Windows
+1.  Install Python in Windows
+2.  Install Python *virtualenv:*
+    - Open CMD and use *pip install virtualenv*
+3.  Create virtual environment: *python -m venv c:\path\to\myenv*
+4. Activate virtual environment: c:\path\to\myenv\activate.bat
+5. Install dependencies:
+    - Flask: *pip install flask*
+	- Pyrebase: *pip install pyrebase4*
+	- Dotenv: *pip install -U python-dotenv*
+	- Flask CORS: *pip install -U flask-cors*
+   
 
 ## How to configure .env file with the Firebase config
 
@@ -25,8 +37,8 @@
 		"appId":  "appId",
 		"measurementId":  "measurementId"
 	}
-3. Change the words between " ": *[apiKey]* (not deleting " ") with the real configuration in YATAM Firebase page -> Configuration -> Firebase SDK snipett CDN.
-4. Change filename from env to .env
+3. Change the words between " ": *apiKey* (not deleting " ") with the real configuration in Firebase page -> Configuration -> Firebase SDK snipett CDN.
+4. Change file name from env to .env
 5. .gitignore file would ignore this file to upload it, but do not try to add it to the commit...
 
 ## How to "Code" in the project
@@ -42,7 +54,19 @@
 ## Flask HTTP methods
 https://pythonbasics.org/flask-http-methods/
 
+## Flask RESTful API tutorial
+https://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask
+
 ## How to run Servers files
 1. Navigate to *~/src/app* in terminal
 2. Use *python [filename]* where *[filename]* can be *server_opendata.py* or *server_db.py*
 3. Open your browser an type *127.0.0.1/30006/<your-query>* without '>' and '<'
+4. You can also use *curl* to test it (in terminal):
+    - GET REQUEST:
+        - $ curl -i http://127.0.0.1:30006/<your-query>
+    - POST REQUEST:
+        - $ curl -i -H "Content-Type: application/json" -X POST -d '{"key":"value of the json"}' http://127.0.0.1:30006/<your-query>
+    - PUT REQUEST:
+        - $ curl -i -H "Content-Type: application/json" -X PUT -d '{"key":"value of the json"}' http://127.0.0.1:30006/<your-query>
+    - DELETE REQUEST:
+        - $ curl -i -H "Content-Type: application/json" -X DELETE http://127.0.0.1:30006/<your-query>
