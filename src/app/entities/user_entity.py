@@ -63,3 +63,11 @@ class User:
             return f'No user has been found with username : "{username}".'
         else:
             return r
+
+    @staticmethod
+    def search_by_key(key):
+        r = db.search_by_key('users', key)
+        if r is None:
+            return f'No user has been found with key : "{key}".'
+        else:
+            return r
