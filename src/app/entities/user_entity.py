@@ -45,6 +45,10 @@ class User:
         db.update('users', key, {'password': password})
 
     @staticmethod
+    def delete(key):
+        db.delete('users', key)
+
+    @staticmethod
     def get_dict():
         return db.get_dict('users')
 
@@ -61,5 +65,13 @@ class User:
         r = db.search_values('users', 'username', username)
         if r is None:
             return f'No user has been found with username : "{username}".'
+        else:
+            return r
+
+    @staticmethod
+    def search_by_key(key):
+        r = db.search_by_key('users', key)
+        if r is None:
+            return f'No user has been found with key : "{key}".'
         else:
             return r

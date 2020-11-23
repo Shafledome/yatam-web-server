@@ -40,6 +40,10 @@ class TrophyList:
         db.update('trophies', key, {'text': text})
 
     @staticmethod
+    def delete(key):
+        db.delete('trophies', key)
+
+    @staticmethod
     def get_dict(trophy_id):
         return db.get_dict('trophies', trophy_id)
 
