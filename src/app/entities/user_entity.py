@@ -44,8 +44,16 @@ class User:
 
     @staticmethod
     def search_by_email(email):
-        return db.search_values('users', 'email', email)
+        r = db.search_values('users', 'email', email)
+        if r is None:
+            return f'No user has been found with email = "{email}".'
+        else:
+            return r
 
     @staticmethod
     def search_by_username(username):
-        return db.search_values('users', 'username', username)
+        r = db.search_values('users', 'username', username)
+        if r is None:
+            return f'No user has been found with username = "{username}".'
+        else:
+            return r
