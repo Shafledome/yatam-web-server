@@ -9,7 +9,7 @@ class Rating:
 
     def __init__(self, rating_id=None, user=None, leisure=None, grade=None, text=None):
         if user is None and leisure is None and grade is None and text is None:
-            r = db.get_dict('ratings', rating_id)
+            r = db.search_by_key('ratings', rating_id)
             self.user = r['user']
             self.leisure = r['leisure']
             self.grade = r['grade']
@@ -56,3 +56,17 @@ class Rating:
     @staticmethod
     def search_by_leisure(leisure):
         return db.search_values('ratings', 'leisure', leisure)
+
+    def search_by_user_and_leisure(user, leisure):
+        data = None
+        d = db.search_values('ratings', 'user', user)
+        for r in d:
+            data = d[r]
+            if data['leisure'] == leisure:
+                break
+            else:
+                data = None
+        if data is not None:
+            return data
+        else:
+            return f'A rating with the user "{user}" adn leisure "{leisure}" has not being found.'
