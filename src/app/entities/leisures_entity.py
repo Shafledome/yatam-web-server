@@ -1,4 +1,6 @@
-import sys, os
+import os
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import utilities.opendata as opendata
 
@@ -32,19 +34,19 @@ class LeisureList:
         for l_id in self.leisures:
             if self.leisures.get(l_id)['coordinates'] == [latitude, longitude]:
                 return l_id
-        return f'A {self.leisure_type.lower()} with the coordinates: {latitude, longitude} has not being found.'
+        return f'A {self.leisure_type.lower()} with the coordinates: {latitude, longitude} has not been found.'
 
     def get_id_by_address(self, address: str):
         for l_id in self.leisures:
             if self.leisures.get(l_id)['address'] == address:
                 return l_id
-        return f'A {self.leisure_type.lower()} with the address: "{address}" has not being found.'
+        return f'A {self.leisure_type.lower()} with the address: "{address}" has not been found.'
 
     def get_id_by_url(self, url: str):
         for l_id in self.leisures:
             if self.leisures.get(l_id)['url'] == url:
                 return l_id
-        return f'A {self.leisure_type.lower()} with the URL: "{url}" has not being found.'
+        return f'A {self.leisure_type.lower()} with the URL: "{url}" has not been found.'
 
 
 if __name__ == '__main__':

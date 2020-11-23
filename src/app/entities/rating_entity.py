@@ -33,7 +33,7 @@ class Rating:
     def get_text(self):
         return self.text
 
-    # Primary keys don't have set method
+    # Primary keys don't have setter
 
     def set_grade(self, grade):
         self.grade = grade
@@ -51,12 +51,21 @@ class Rating:
 
     @staticmethod
     def search_by_user(user):
-        return db.search_values('ratings', 'user', user)
+        r = db.search_values('ratings', 'user', user)
+        if r is not None:
+            return r
+        else:
+            return f'A rating with user id "{user}" has not been found.'
 
     @staticmethod
     def search_by_leisure(leisure):
-        return db.search_values('ratings', 'leisure', leisure)
+        r = db.search_values('ratings', 'leisure', leisure)
+        if r is not None:
+            return r
+        else:
+            return f'A rating with leisure id "{leisure}" has not been found.'
 
+    @staticmethod
     def search_by_user_and_leisure(user, leisure):
         data = None
         d = db.search_values('ratings', 'user', user)
@@ -69,4 +78,4 @@ class Rating:
         if data is not None:
             return data
         else:
-            return f'A rating with the user "{user}" adn leisure "{leisure}" has not being found.'
+            return f'A rating with user id "{user}" and leisure id "{leisure}" has not been found.'

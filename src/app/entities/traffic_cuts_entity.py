@@ -28,4 +28,4 @@ class TrafficList:
         for tc_id in self.traffic_cuts:
             if self.traffic_cuts.get(tc_id)['coordinates'] == [latitude, longitude]:
                 return tc_id
-        return f'A traffic cut with the coordinates: {latitude, longitude} has not being found.'
+        return f'A traffic cut with the coordinates: {latitude, longitude} has not been found.'
