@@ -6,21 +6,27 @@ import utilities.db as db
 
 
 class User:
-    def __init__(self, email, username=None, password=None):
-        if username is None and password is None:
-            u = self.search_by_email(email)
+    def __init__(self, key=None, email=None, username=None, password=None):
+        # e.g. __init__(key)
+        if key is not None and email is None and username is None and password is None:
+            u = db.search_by_key('users', key)
             self.email = u['email']
             self.username = u['username']
             self.password = u['password']
-        else:
+        # e.g. __init__(email=email, username=username, password=password)
+        elif key is None and email is not None and username is not None and password is not None:
             db.create('users', {'email': email, 'username': username, 'password': password})
             self.email = email
             self.username = username
             self.password = password
 
-    # Primary key doesn't have set method
     def get_email(self):
         return self.email
+
+    def set_email(self, email):
+        key = db.search_key('users', 'email', self.email)
+        db.update('users', key, {'email': email})
+        self.email = email
 
     def get_username(self):
         return self.username
