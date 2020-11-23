@@ -50,6 +50,14 @@ class Rating:
         return db.get_dict('ratings')
 
     @staticmethod
+    def search_by_id(rating_id):
+        r = db.search_by_key('ratings', rating_id)
+        if r is not None:
+            return r
+        else:
+            return f'No rating has been found with rating id : "{rating_id}".'
+
+    @staticmethod
     def search_by_user(user):
         r = db.search_values('ratings', 'user', user)
         if r is not None:
