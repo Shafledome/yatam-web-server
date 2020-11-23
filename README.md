@@ -26,18 +26,16 @@
 ## How to configure .env file with the Firebase config
 
 1. Create new file called *env*
-2. Edit file and write:
-	FIREBASECONFIG =  {
-		"apiKey":  "apiKey",
-		"authDomain":  "authDomain",
-		"databaseURL":  "databaseURL",
-		"projectId":  "projectId",
-		"storageBucket":  "storageBucket",
-		"messagingSenderId":  "messagingSenderId",
-		"appId":  "appId",
-		"measurementId":  "measurementId"
-	}
-3. Change the words between " ": *apiKey* (not deleting " ") with the real configuration in Firebase page -> Configuration -> Firebase SDK snipett CDN.
+2. Edit file and write:\
+apiKey = 'value'\
+authDomain = 'value'\
+databaseURL = 'value'\
+projectId = 'value'\
+storageBucket = 'value'\
+messagingSenderId = 'value'\
+appId = 'value'\
+measurementId = 'value'
+3. Change the *value* (not deleting ' ') with the real configuration in Firebase page -> Configuration -> Firebase SDK snipett CDN.
 4. Change file name from env to .env
 5. .gitignore file would ignore this file to upload it, but do not try to add it to the commit...
 
