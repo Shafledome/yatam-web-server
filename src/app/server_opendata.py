@@ -68,8 +68,8 @@ def get_leisure_by_type_and_url(leisure_type, leisure_url):
 
 
 # Returns JSON with data about a traffic cut by its name
-@app.route('/traffic_cuts/id/<int:traffic_cuts_name>')
-def get_traffic_cuts_id(traffic_cuts_name):
+@app.route('/traffic_cuts/name/<int:traffic_cuts_name>')
+def get_traffic_cuts_by_name(traffic_cuts_name):
     traffic_cuts = TrafficList()
     result = traffic_cuts.get_by_id(traffic_cuts.get_id_by_name(traffic_cuts_name))
     status = 200
@@ -82,7 +82,7 @@ def get_traffic_cuts_id(traffic_cuts_name):
 
 # Returns JSON with data about a traffic cut by its id
 @app.route('/traffic_cuts/id/<int:traffic_cuts_id>')
-def get_traffic_cuts_id(traffic_cuts_id):
+def get_traffic_cuts_by_id(traffic_cuts_id):
     traffic_cuts = TrafficList()
     result = traffic_cuts.get_by_id(traffic_cuts_id)
     status = 200
