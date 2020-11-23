@@ -7,44 +7,52 @@ import utilities.db as db
 
 class Rating:
 
-    def __init__(self, rating_id, user_email=None, leisure_id=None):
-        if user_email is None and leisure_id is None:
-            r = db.get_dict('rating', rating_id)
-            self.id = rating_id
-            self.user_email = r['user_email']
-            self.leisure_id = r['leisure_id']
+    def __init__(self, rating_id=None, user=None, leisure=None, grade=None, text=None):
+        if user is None and leisure is None and grade is None and text is None:
+            r = db.get_dict('ratings', rating_id)
+            self.user = r['user']
+            self.leisure = r['leisure']
+            self.grade = r['grade']
+            self.text = r['text']
         else:
-            db.create('rating', {'user_email': user_email, 'leisure_id': leisure_id})
-            self.rating_id = rating_id
-            self.user_email = user_email
-            self.leisure_id = leisure_id
+            db.create('ratings', {'user': user, 'leisure': leisure, 'grade': grade, 'text': text})
+            self.user = user
+            self.leisure = leisure
+            self.grade = grade
+            self.text = text
 
-    def get_user_email(self):
-        return self.user_email
+    def get_user(self):
+        return self.user
 
-    def get_leisure_id(self):
-        return self.leisure_id
+    def get_leisure(self):
+        return self.leisure
 
-    # Primary key doesn't have set method
+    def get_grade(self):
+        return self.grade
 
-    def set_user_email(self, user_email):
-        self.user_email = user_email
-        key = db.search_key('rating', 'user_email', self.user_email)
-        db.update('rating', key, {'user_email': user_email})
+    def get_text(self):
+        return self.text
 
-    def set_leisure_id(self, leisure_id):
-        self.leisure_id = leisure_id
-        key = db.search_key('rating', 'leisure_id', self.leisure_id)
-        db.update('rating', key, {'leisure_id': leisure_id})
+    # Primary keys don't have set method
+
+    def set_grade(self, grade):
+        self.grade = grade
+        key = db.search_key('ratings', 'grade', self.grade)
+        db.update('ratings', key, {'grade': grade})
+
+    def set_text(self, text):
+        self.text = text
+        key = db.search_key('ratings', 'text', self.text)
+        db.update('ratings', key, {'text': text})
 
     @staticmethod
     def get_dict():
-        return db.get_dict('rating')
+        return db.get_dict('ratings')
 
     @staticmethod
-    def search_by_user(user_email):
-        return db.search_values('rating', 'user_email', user_email)
+    def search_by_user(user):
+        return db.search_values('ratings', 'user', user)
 
     @staticmethod
-    def search_by_leisure(leisure_id):
-        return db.search_values('rating', 'leisure_id', leisure_id)
+    def search_by_leisure(leisure):
+        return db.search_values('ratings', 'leisure', leisure)
