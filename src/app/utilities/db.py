@@ -119,3 +119,7 @@ def search(entry, attribute, value, ret):
         else:
             data = None
     return data
+
+
+def search_by_key(entry, key):
+    return db.child(entry).child(key).get().val()
