@@ -1,11 +1,8 @@
-import sys, os
+import os
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import utilities.opendata as opendata
-
-'''
-We have different types of leisures. Museum, art gallery, dog park, monuments, training, library, cinema and
-theater. To ask it to the opendata.py file, we will ask it in UPPERCASE and without white spaces.
-'''
 
 
 class TrafficList:
