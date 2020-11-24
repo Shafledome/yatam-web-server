@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, json
+from flask import Flask, Response, json
 from flask_cors import CORS
 from entities.leisures_entity import LeisureList
 from entities.traffic_cuts_entity import TrafficList
