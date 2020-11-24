@@ -26,19 +26,14 @@ def not_found():
     return Response(json.dumps({'error': 'Not found'}), mimetype=mimetype, status=404)
 
 
-# ToDo: Check if the request would be POST or GET
 # Returns JSON with data about a leisure by its type and name
-@app.route('/leisures/<string:leisure_type>/name/', methods=['POST'])
-def get_leisure_by_type_and_name(leisure_type):
-    if not request.json:
-        return Response(json.dumps({'error': f'Bad request.'}), mimetype=mimetype, status=400)
-    leisure_name = request.json['name']
+@app.route('/leisures/<string:leisure_type>/name/<string:leisure_name>')
+def get_leisure_by_type_and_name(leisure_type, leisure_name):
     leisures = LeisureList(leisure_type.upper())
     result = leisures.get_by_id(leisures.get_id_by_name(leisure_name))
     status = 200
     if not isinstance(result, dict):
         status = 404
-        result = {'error': result}
     return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 
