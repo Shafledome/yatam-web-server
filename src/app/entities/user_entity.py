@@ -44,8 +44,19 @@ class User:
         key = db.search_key('users', 'email', self.email)
         db.update('users', key, {'password': password})
 
-    @staticmethod
-    def delete(key):
+    def get_ratings(self):
+        key = db.search_key('users', 'email', self.email)
+        r = db.search_values('ratings', 'user', key)
+        if r is None:
+            return f'No ratings were found with user : "{self.username}".'
+        else:
+            return r
+
+    def delete(self, key):
+        ratings_list = self.get_ratings()
+        for rating in ratings_list:
+            rating_key = db.search_key('ratings', 'leisure', rating['leisure'])
+            db.delete('ratings', rating_key)
         db.delete('users', key)
 
     @staticmethod
