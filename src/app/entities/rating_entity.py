@@ -7,14 +7,14 @@ import utilities.db as db
 
 class Rating:
 
-    def __init__(self, rating_id=None, user=None, leisure=None, grade=None, text=None):
-        if user is None and leisure is None and grade is None and text is None:
-            r = db.search_by_key('ratings', rating_id)
+    def __init__(self, key=None, user=None, leisure=None, grade=None, text=None):
+        if key is not None and user is None and leisure is None and grade is None and text is None:
+            r = db.search_by_key('ratings', key)
             self.user = r['user']
             self.leisure = r['leisure']
             self.grade = r['grade']
             self.text = r['text']
-        else:
+        elif key is None and user is not None and leisure is not None and grade is not None and text is not None:
             db.create('ratings', {'user': user, 'leisure': leisure, 'grade': grade, 'text': text})
             self.user = user
             self.leisure = leisure
@@ -33,7 +33,7 @@ class Rating:
     def get_text(self):
         return self.text
 
-    # Primary keys don't have setter
+    # Primary keys (user and leisure) don't have setter
 
     def set_grade(self, grade):
         self.grade = grade
@@ -54,12 +54,12 @@ class Rating:
         return db.get_dict('ratings')
 
     @staticmethod
-    def search_by_id(rating_id):
-        r = db.search_by_key('ratings', rating_id)
+    def search_by_id(key):
+        r = db.search_by_key('ratings', key)
         if r is not None:
             return r
         else:
-            return f'No rating has been found with rating id : "{rating_id}".'
+            return f'No rating has been found with rating id : "{key}".'
 
     @staticmethod
     def search_by_user(user):
