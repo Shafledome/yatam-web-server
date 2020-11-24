@@ -80,10 +80,9 @@ There is no delete/update with multiple data
 # e.g get(user) returns a dictionary
 # e.g get(user, order=order) returns an ordered dictionary
 def get_dict(entry, order=None, value=None):
-    d = None
     if value is not None and order is not None:
         d = db.child(entry).order_by_child(order).equal_to(value).get().val()
-    if order is not None:
+    elif order is not None:
         d = db.child(entry).order_by_child(order).get().val()
     else:
         d = db.child(entry).get().val()
@@ -135,4 +134,5 @@ if __name__ == '__main__':
         "email": "sera@sera.com"
         }
     create('users', dt)
-    print(search_values('users', 'username', 'juanito'))
+    #print(search_values('users', 'username', 'juanito'))
+    print(get_dict('ratings', 'user', '-MMrFQ50CmlDbrdbwx5u'))
