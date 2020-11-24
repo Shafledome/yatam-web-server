@@ -83,7 +83,7 @@ def get_traffic_cuts_by_name(traffic_cuts_name):
     if not isinstance(result, dict):
         status = 404
         if result is None:
-            result = {'error': f'Error 404. ID: {traffic_cuts_name} was not found.'}
+            result = {'error': f'Error 404. Traffic cut with name: {traffic_cuts_name} was not found.'}
     return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 

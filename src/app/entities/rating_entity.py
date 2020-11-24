@@ -9,12 +9,14 @@ class Rating:
 
     def __init__(self, key=None, user=None, leisure=None, grade=None, text=None):
         if key is not None and user is None and leisure is None and grade is None and text is None:
+            # e.g. __init__(key)
             r = db.search_by_key('ratings', key)
             self.user = r['user']
             self.leisure = r['leisure']
             self.grade = r['grade']
             self.text = r['text']
         elif key is None and user is not None and leisure is not None and grade is not None and text is not None:
+            # e.g. __init__(user, leisure, grade, text)
             db.create('ratings', {'user': user, 'leisure': leisure, 'grade': grade, 'text': text})
             self.user = user
             self.leisure = leisure
@@ -80,7 +82,7 @@ class Rating:
     @staticmethod
     def search_by_user_and_leisure(user, leisure):
         data = None
-        d = db.search_values('ratings', 'user', user)
+        d = db.get_dict('ratings', 'user', user)
         for r in d:
             data = d[r]
             if data['leisure'] == leisure:
