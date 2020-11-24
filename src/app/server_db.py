@@ -58,11 +58,13 @@ def create_rating():
     user = User.search_by_key(user_key)
     leisure = ''
     for leisure_type in leisures_type:
-        leisure = LeisureList(leisure_type).get_by_id(leisure_id)
+        ls = LeisureList(leisure_type)
+        leisure = ls.get_by_id(leisure_id)
+        print(leisure)
         if isinstance(leisure, dict):
             break
     status = 200
-    if not isinstance(user, dict) and not isinstance(leisure, dict) and 5 >= grade >= 0:
+    if isinstance(user, dict) and isinstance(leisure, dict) and 5 >= grade >= 0:
         rating = Rating.search_by_user_and_leisure(user_key, leisure_id)
         if not isinstance(rating, dict):
             result = Rating(user_key, leisure_id, grade, text)

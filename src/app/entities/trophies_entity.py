@@ -41,7 +41,7 @@ class TrophyList:
         return db.get_dict('trophies')
 
     @staticmethod
-    def search_by_trophy_id(key):
+    def search_by_trophy_key(key):
         return db.search_by_key('trophies', key)
 
     @staticmethod
