@@ -185,8 +185,8 @@ def update_user_username():
     user_key = request.json['user']
     username = request.json['username']
     status = 200
-    if user_key is not None and username is not None:
-        user = User(user_key)
+    user = User.search_by_key(user_key)
+    if isinstance(user, dict):
         user.set_username(username)
         result = {'result': f'Status 200. The user: {user_key} was updated with name {username}.'}
     else:
