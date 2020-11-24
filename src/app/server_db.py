@@ -10,7 +10,6 @@ import json
 app = Flask(__name__)
 mimetype = 'application/json'
 
-
 leisures_type = [
     'MUSEUM',
     'ARTGALLERY',
@@ -71,12 +70,14 @@ def create_rating():
             result = {'result': f'Status 200. The rating was created.'}
         else:
             status = 400
-            result = {'error' :f'Error 400. The rating with user_key:{user_key} and Leisure_ID:{leisure_id} is already in the ' \
-                     f'database.'}
+            result = {
+                'error': f'Error 400. The rating with user_key:{user_key} and Leisure_ID:{leisure_id} is already in the'
+                         f'database.'}
     else:
         status = 400
-        result = {'error': f'Error 400. The user_key:{user_key} or Leisure_ID:{leisure_id} is wrong or does not exists in the ' \
-                 f'system.'}
+        result = {
+            'error': f'Error 400. The user_key:{user_key} or Leisure_ID:{leisure_id} is wrong or does not exists in the'
+                     f'system.'}
 
     return Response(json.dumps(result), mimetype=mimetype, status=status)
 
@@ -90,7 +91,7 @@ def create_trophies():
     trophy = TrophyList.search_by_name(trophy_name)
     status = 200
     if not isinstance(trophy, dict) and text is not None:
-        TrophyList(trophy_name, text)
+        TrophyList(name=trophy_name, text=text)
         result = {'result': f'Status 200. The rating was created.'}
     else:
         status = 400
@@ -187,10 +188,11 @@ def update_user_username():
     if user_key is not None and username is not None:
         user = User(user_key)
         user.set_username(username)
+        result = {'result': f'Status 200. The user: {user_key} was updated with name {username}.'}
     else:
         status = 404
-        user = {'Error': f'Error 404. User with key: {user_key} not found and cannot be updated'}
-    return Response(json.dumps(user), mimetype=mimetype, status=status)
+        result = {'Error': f'Error 404. User with key: {user_key} not found and cannot be updated'}
+    return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 
 @app.route('/users/update/user/password', methods=['PUT'])
@@ -203,10 +205,11 @@ def update_user_password():
     if user_key is not None and password is not None:
         user = User(user_key)
         user.set_password(password)
+        result = {'result': f'Status 200. The user: {user_key} was updated with password: {password}.'}
     else:
         status = 400
-        user = {'Error': f'Error 400. Bad request. The provided data is not correct.'}
-    return Response(json.dumps(user), mimetype=mimetype, status=status)
+        result = {'Error': f'Error 400. Bad request. The provided data is not correct.'}
+    return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 
 @app.route('/ratings/update/rating/grade', methods=['PUT'])
@@ -220,13 +223,14 @@ def update_rating_grade():
         if 5 >= grade >= 0:
             rating = Rating(rating_key)
             rating.set_grade(grade)
+            result = {'result': f'Status 200. The rating: {rating_key} was updated with grade {grade}.'}
         else:
-            rating = {'Error': f'Error 400. Grade must be between 0 and 5 for rating: {rating_key}'}
+            result = {'Error': f'Error 400. Grade must be between 0 and 5 for rating: {rating_key}'}
             status = 400
     else:
         status = 400
-        rating = {'Error': f'Error 400. Bad request. The provided data is not correct.'}
-    return Response(json.dumps(rating), mimetype=mimetype, status=status)
+        result = {'Error': f'Error 400. Bad request. The provided data is not correct.'}
+    return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 
 @app.route('/ratings/update/rating/text', methods=['PUT'])
@@ -239,10 +243,11 @@ def update_rating_text():
     if rating_key is not None and text is not None:
         rating = Rating(rating_key)
         rating.set_text(text)
+        result = {'result': f'Status 200. The rating: {rating_key} was updated with text: {text}.'}
     else:
         status = 400
-        rating = {'Error': f'Error 400. Bad request. The provided data is not correct.'}
-    return Response(json.dumps(rating), mimetype=mimetype, status=status)
+        result = {'Error': f'Error 400. Bad request. The provided data is not correct.'}
+    return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 
 @app.route('/trophies/update/trophy/name', methods=['PUT'])
@@ -255,10 +260,11 @@ def update_trophy_name():
     if trophy_key is not None and name is not None:
         trophy = TrophyList(trophy_key)
         trophy.set_name(name)
+        result = {'result': f'Status 200. The trophy: {trophy_key} was updated with name {name}.'}
     else:
         status = 400
-        trophy = {'Error': f'Error 400. Bad request. The provided data is not correct.'}
-    return Response(json.dumps(trophy), mimetype=mimetype, status=status)
+        result = {'Error': f'Error 400. Bad request. The provided data is not correct.'}
+    return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 
 @app.route('/trophies/update/trophy/text', methods=['PUT'])
@@ -271,10 +277,11 @@ def update_trophy_text():
     if trophy_key is not None and text is not None:
         trophy = TrophyList(trophy_key)
         trophy.set_text(text)
+        result = {'result': f'Status 200. The trophy: {trophy_key} was updated with text: {text}.'}
     else:
         status = 400
-        trophy = {'Error': f'Error 400. Bad request. The provided data is not correct.'}
-    return Response(json.dumps(trophy), mimetype=mimetype, status=status)
+        result = {'Error': f'Error 400. Bad request. The provided data is not correct.'}
+    return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 
 # DELETE
@@ -288,10 +295,11 @@ def delete_user_by_id():
     status = 200
     if user_key is not None and isinstance(user, dict):
         User().delete(user_key)
+        result = {'result': f'Status 200. The user: {user_key} was deleted.'}
     else:
         status = 400
-        user = {'Error': f'Error 400. Bad request. The provided data is not correct.'}
-    return Response(json.dumps(user), mimetype=mimetype, status=status)
+        result = {'Error': f'Error 400. Bad request. The provided data is not correct.'}
+    return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 
 @app.route('/ratings/delete/rating', methods=['DELETE'])
@@ -303,10 +311,11 @@ def delete_rating_by_id():
     status = 200
     if rating is not None and isinstance(rating, dict):
         Rating().delete(rating_key)
+        result = {'result': f'Status 200. The rating: {rating_key} was deleted.'}
     else:
         status = 400
-        rating = {'Error': f'Error 400. Bad request. The provided data is not correct.'}
-    return Response(json.dumps(rating), mimetype=mimetype, status=status)
+        result = {'Error': f'Error 400. Bad request. The provided data is not correct.'}
+    return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 
 @app.route('/trophies/delete/trophy', methods=['DELETE'])
@@ -318,10 +327,11 @@ def delete_trophy_by_id():
     status = 200
     if trophy is not None:
         TrophyList.delete(trophy_key)
+        result = {'result': f'Status 200. The trophy: {trophy_key} was deleted.'}
     else:
         status = 400
-        trophy = {'Error': f'Error 400. Bad request. The provided data is not correct.'}
-    return Response(json.dumps(trophy), mimetype=mimetype, status=status)
+        result = {'Error': f'Error 400. Bad request. The provided data is not correct.'}
+    return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 
 if __name__ == '__main__':
