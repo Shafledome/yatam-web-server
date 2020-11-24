@@ -18,7 +18,7 @@
 4. Activate virtual environment: c:\path\to\myenv\activate.bat
 5. Install dependencies:
     - Flask: *pip install flask*
-	- Pyrebase: *pip install pyrebase4*
+	- Pyrebase4: *pip install pyrebase4*
 	- Dotenv: *pip install -U python-dotenv*
 	- Flask CORS: *pip install -U flask-cors*
    

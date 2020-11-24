@@ -67,15 +67,16 @@ def create_rating():
     if isinstance(user, dict) and isinstance(leisure, dict) and 5 >= grade >= 0:
         rating = Rating.search_by_user_and_leisure(user_key, leisure_id)
         if not isinstance(rating, dict):
-            result = Rating(user_key, leisure_id, grade, text)
+            Rating(user=user_key, leisure=leisure_id, grade=grade, text=text)
+            result = {'result': f'Status 200. The rating was created.'}
         else:
             status = 400
-            result = f'Error 400. The rating with user_key:{user_key} and Leisure_ID:{leisure_id} is already in the ' \
-                     f'database. '
+            result = {'error' :f'Error 400. The rating with user_key:{user_key} and Leisure_ID:{leisure_id} is already in the ' \
+                     f'database.'}
     else:
         status = 400
-        result = f'Error 400. The user_key:{user_key} or Leisure_ID:{leisure_id} is wrong or does not exists in the ' \
-                 f'system. '
+        result = {'error': f'Error 400. The user_key:{user_key} or Leisure_ID:{leisure_id} is wrong or does not exists in the ' \
+                 f'system.'}
 
     return Response(json.dumps(result), mimetype=mimetype, status=status)
 
@@ -89,7 +90,8 @@ def create_trophies():
     trophy = TrophyList.search_by_name(trophy_name)
     status = 200
     if not isinstance(trophy, dict) and text is not None:
-        result = TrophyList(trophy_name, text)
+        TrophyList(trophy_name, text)
+        result = {'result': f'Status 200. The rating was created.'}
     else:
         status = 400
         result = {'error': f'Error 400. The trophy: {trophy_name} is already in the database.'}
