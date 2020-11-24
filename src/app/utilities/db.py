@@ -1,17 +1,10 @@
 import pyrebase
 import os
+import json
 from dotenv import load_dotenv
 
 load_dotenv()
-config = {'apiKey': os.getenv('apiKey'),
-          'authDomain': os.getenv('authDomain'),
-          'databaseURL': os.getenv('databaseURL'),
-          'projectId': os.getenv('projectId'),
-          'storageBucket': os.getenv('storageBucket'),
-          'messagingSenderId': os.getenv('messagingSenderId'),
-          'appId': os.getenv('appId'),
-          'measurementId': os.getenv('measurementId')
-          }
+config = json.loads(os.getenv('config'))
 
 firebase = pyrebase.initialize_app(config)
 
@@ -117,7 +110,7 @@ def search_values(entry, attribute, value):
 
 def search(entry, attribute, value, ret):
     data = None
-    d = db.get(entry)
+    d = db.child(entry).get().val()
     for u in d:
         data = d[u]
         if data[attribute] == value:
@@ -131,3 +124,13 @@ def search(entry, attribute, value, ret):
 
 def search_by_key(entry, key):
     return db.child(entry).child(key).get().val()
+
+
+if __name__ == '__main__':
+    dt = {
+        "name": "sera",
+        "username": "seraa",
+        "email": "sera@sera.com"
+        }
+    create('users', dt)
+    print(search_values('users', 'username', 'juanito'))

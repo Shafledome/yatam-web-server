@@ -1,5 +1,5 @@
-from flask import Flask, request, Response, jsonify, json
-from flask_cors import CORS, cross_origin
+from flask import Flask, request, Response, json
+from flask_cors import CORS
 from entities.leisures_entity import LeisureList
 from entities.traffic_cuts_entity import TrafficList
 
