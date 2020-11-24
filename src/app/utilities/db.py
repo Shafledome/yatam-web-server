@@ -79,8 +79,10 @@ There is no delete/update with multiple data
 
 # e.g get(user) returns a dictionary
 # e.g get(user, order=order) returns an ordered dictionary
-def get_dict(entry, order=None):
+def get_dict(entry, order=None, value=None):
     d = None
+    if value is not None and order is not None:
+        d = db.child(entry).order_by_child(order).equal_to(value).get().val()
     if order is not None:
         d = db.child(entry).order_by_child(order).get().val()
     else:
