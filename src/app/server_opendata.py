@@ -21,11 +21,6 @@ CORS(app)
 mimetype = 'application/json'
 
 
-@app.errorhandler(404)
-def not_found():
-    return Response(json.dumps({'error': 'Not found'}), mimetype=mimetype, status=404)
-
-
 # Returns JSON with data about a leisure by its type and name
 @app.route('/leisures/<string:leisure_type>/name/<string:leisure_name>')
 def get_leisure_by_type_and_name(leisure_type, leisure_name):
@@ -34,6 +29,8 @@ def get_leisure_by_type_and_name(leisure_type, leisure_name):
     status = 200
     if not isinstance(result, dict):
         status = 404
+        if result is None:
+            result = {'error': f'Error 404. ID: {leisure_name} was not found.'}
     return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 
@@ -67,6 +64,18 @@ def get_leisure_by_type_and_address(leisure_type, leisure_address):
 def get_leisure_by_type_and_url(leisure_type, leisure_url):
     leisures = LeisureList(leisure_type.upper())
     result = leisures.get_by_id(leisures.get_id_by_url(leisure_url))
+    status = 200
+    if not isinstance(result, dict):
+        status = 404
+        result = {'error': result}
+    return Response(json.dumps(result), mimetype=mimetype, status=status)
+
+
+# Returns JSON with data about a leisure by its type and coordinates
+@app.route('/leisures/<string:leisure_type>/latitude/<string:latitude>/longitude/<string:longitude>')
+def get_leisure_by_type_and_coordinates(leisure_type, latitude, longitude):
+    leisures = LeisureList(leisure_type.upper())
+    result = leisures.get_by_id(leisures.get_id_by_coordinates(float(latitude), float(longitude)))
     status = 200
     if not isinstance(result, dict):
         status = 404
