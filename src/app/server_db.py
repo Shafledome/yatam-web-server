@@ -187,7 +187,8 @@ def update_user_username():
     status = 200
     user = User.search_by_key(user_key)
     if isinstance(user, dict):
-        user.set_username(username)
+        user = User(user_key)
+        user.set_username(user_key, username)
         result = {'result': f'Status 200. The user: {user_key} was updated with name {username}.'}
     else:
         status = 404
@@ -202,7 +203,8 @@ def update_user_password():
     user_key = request.json['user']
     password = request.json['password']
     status = 200
-    if user_key is not None and password is not None:
+    user = User.search_by_key(user_key)
+    if isinstance(user, dict):
         user = User(user_key)
         user.set_password(password)
         result = {'result': f'Status 200. The user: {user_key} was updated with password: {password}.'}
@@ -219,7 +221,8 @@ def update_rating_grade():
     rating_key = request.json['rating']
     grade = request.json['grade']
     status = 200
-    if rating_key is not None and grade is not None:
+    rating = Rating.search_by_id(rating_key)
+    if isinstance(rating, dict):
         if 5 >= grade >= 0:
             rating = Rating(rating_key)
             rating.set_grade(grade)
@@ -240,9 +243,9 @@ def update_rating_text():
     rating_key = request.json['rating']
     text = request.json['text']
     status = 200
-    if rating_key is not None and text is not None:
-        rating = Rating(rating_key)
-        rating.set_text(text)
+    rating = Rating.search_by_id(rating_key)
+    if isinstance(rating, dict):
+        Rating.set_text(rating_key, text)
         result = {'result': f'Status 200. The rating: {rating_key} was updated with text: {text}.'}
     else:
         status = 400
@@ -257,9 +260,9 @@ def update_trophy_name():
     trophy_key = request.json['trophy']
     name = request.json['name']
     status = 200
-    if trophy_key is not None and name is not None:
-        trophy = TrophyList(trophy_key)
-        trophy.set_name(name)
+    trophy = TrophyList.search_by_trophy_key(trophy_key)
+    if isinstance(trophy, dict):
+        TrophyList.set_name(trophy_key, name)
         result = {'result': f'Status 200. The trophy: {trophy_key} was updated with name {name}.'}
     else:
         status = 400
@@ -274,9 +277,9 @@ def update_trophy_text():
     trophy_key = request.json['trophy']
     text = request.json['text']
     status = 200
-    if trophy_key is not None and text is not None:
-        trophy = TrophyList(trophy_key)
-        trophy.set_text(text)
+    trophy = TrophyList.search_by_trophy_key(trophy_key)
+    if isinstance(trophy, dict):
+        TrophyList.set_text(trophy_key, text)
         result = {'result': f'Status 200. The trophy: {trophy_key} was updated with text: {text}.'}
     else:
         status = 400
@@ -291,10 +294,10 @@ def delete_user_by_id():
     if not request.json:
         return Response(json.dumps({'error': f'Bad request.'}), mimetype=mimetype, status=400)
     user_key = request.json['user']
-    user = User().search_by_key(user_key)
+    user = User.search_by_key(user_key)
     status = 200
     if user_key is not None and isinstance(user, dict):
-        User().delete(user_key)
+        User.delete(user_key)
         result = {'result': f'Status 200. The user: {user_key} was deleted.'}
     else:
         status = 400
@@ -307,10 +310,10 @@ def delete_rating_by_id():
     if not request.json:
         return Response(json.dumps({'error': f'Bad request.'}), mimetype=mimetype, status=400)
     rating_key = request.json['rating']
-    rating = Rating().search_by_id(rating_key)
+    rating = Rating.search_by_id(rating_key)
     status = 200
     if rating is not None and isinstance(rating, dict):
-        Rating().delete(rating_key)
+        Rating.delete(rating_key)
         result = {'result': f'Status 200. The rating: {rating_key} was deleted.'}
     else:
         status = 400
@@ -325,7 +328,7 @@ def delete_trophy_by_id():
     trophy_key = request.json['trophy']
     trophy = TrophyList.search_by_trophy_key(trophy_key)
     status = 200
-    if trophy is not None:
+    if isinstance(trophy, dict):
         TrophyList.delete(trophy_key)
         result = {'result': f'Status 200. The trophy: {trophy_key} was deleted.'}
     else:
