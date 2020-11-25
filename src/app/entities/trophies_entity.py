@@ -19,16 +19,8 @@ class TrophyList:
     def get_name(self):
         return self.name
 
-    def set_name(self, key, name):
-        db.update('trophies', key, {'name': name})
-        self.name = name
-
     def get_text(self):
         return self.text
-
-    def set_text(self, key, text):
-        db.update('trophies', key, {'text': text})
-        self.text = text
 
     @staticmethod
     def delete(key):
@@ -45,3 +37,11 @@ class TrophyList:
     @staticmethod
     def search_by_name(name):
         return db.search_values('trophies', 'name', name)
+
+    @staticmethod
+    def set_name(key, name):
+        db.update('trophies', key, {'name': name})
+
+    @staticmethod
+    def set_text(key, text):
+        db.update('trophies', key, {'text': text})

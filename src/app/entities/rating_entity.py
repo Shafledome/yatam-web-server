@@ -37,14 +37,6 @@ class Rating:
 
     # Primary keys (user and leisure) don't have setter
 
-    def set_grade(self, key, grade):
-        db.update('ratings', key, {'grade': grade})
-        self.grade = grade
-
-    def set_text(self, key, text):
-        db.update('ratings', key, {'text': text})
-        self.text = text
-
     @staticmethod
     def delete(key):
         db.delete('ratings', key)
@@ -91,3 +83,11 @@ class Rating:
             return data
         else:
             return f'No rating has been found with user id : "{user}" and leisure id : "{leisure}".'
+
+    @staticmethod
+    def set_grade(key, grade):
+        db.update('ratings', key, {'grade': grade})
+
+    @staticmethod
+    def set_text(key, text):
+        db.update('ratings', key, {'text': text})

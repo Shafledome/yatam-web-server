@@ -297,7 +297,7 @@ def delete_user_by_id():
     user = User.search_by_key(user_key)
     status = 200
     if user_key is not None and isinstance(user, dict):
-        User.delete(user_key)
+        User(user_key).delete(user_key)
         result = {'result': f'Status 200. The user: {user_key} was deleted.'}
     else:
         status = 400

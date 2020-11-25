@@ -23,23 +23,11 @@ class User:
     def get_email(self):
         return self.email
 
-    def set_email(self, key, email):
-        db.update('users', key, {'email': email})
-        self.email = email
-
     def get_username(self):
         return self.username
 
-    def set_username(self, key, username):
-        db.update('users', key, {'username': username})
-        self.username = username
-
     def get_password(self):
         return self.password
-
-    def set_password(self, key, password):
-        db.update('users', key, {'password': password})
-        self.password = password
 
     def get_ratings(self):
         key = db.search_key('users', 'email', self.email)
@@ -52,7 +40,7 @@ class User:
     def delete(self, key):
         ratings_list = self.get_ratings()
         for rating in ratings_list:
-            #rating_key = db.search_key('ratings', 'leisure', rating['leisure'])
+            # rating_key = db.search_key('ratings', 'leisure', rating['leisure'])
             db.delete('ratings', rating)
         db.delete('users', key)
 
@@ -83,3 +71,15 @@ class User:
             return f'No user has been found with key : "{key}".'
         else:
             return r
+
+    @staticmethod
+    def set_email(key, email):
+        db.update('users', key, {'email': email})
+
+    @staticmethod
+    def set_username(key, username):
+        db.update('users', key, {'username': username})
+
+    @staticmethod
+    def set_password(self, key, password):
+        db.update('users', key, {'password': password})
