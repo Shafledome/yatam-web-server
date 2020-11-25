@@ -7,7 +7,7 @@
 4. Activate virtual environment: *source venv/bin/activate*
 5. Install dependencies:
 	- Flask: *pip install flask*
-	- Pyrebase: *pip install pyrebase*
+	- Pyrebase4: *pip install pyrebase4*
 	- Dotenv: *pip install -U python-dotenv*
 	- Flask CORS: *pip install -U flask-cors*
 ### Windows
