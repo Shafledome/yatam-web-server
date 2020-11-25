@@ -23,26 +23,23 @@ class User:
     def get_email(self):
         return self.email
 
-    def set_email(self, email):
-        key = db.search_key('users', 'email', self.email)
+    def set_email(self, key, email):
         db.update('users', key, {'email': email})
         self.email = email
 
     def get_username(self):
         return self.username
 
-    def set_username(self, username):
-        self.username = username
-        key = db.search_key('users', 'email', self.email)
+    def set_username(self, key, username):
         db.update('users', key, {'username': username})
+        self.username = username
 
     def get_password(self):
         return self.password
 
-    def set_password(self, password):
-        self.password = password
-        key = db.search_key('users', 'email', self.email)
+    def set_password(self, key, password):
         db.update('users', key, {'password': password})
+        self.password = password
 
     def get_ratings(self):
         key = db.search_key('users', 'email', self.email)

@@ -37,15 +37,13 @@ class Rating:
 
     # Primary keys (user and leisure) don't have setter
 
-    def set_grade(self, grade):
-        self.grade = grade
-        key = db.search_key('ratings', 'grade', self.grade)
+    def set_grade(self, key, grade):
         db.update('ratings', key, {'grade': grade})
+        self.grade = grade
 
-    def set_text(self, text):
-        self.text = text
-        key = db.search_key('ratings', 'text', self.text)
+    def set_text(self, key, text):
         db.update('ratings', key, {'text': text})
+        self.text = text
 
     @staticmethod
     def delete(key):
