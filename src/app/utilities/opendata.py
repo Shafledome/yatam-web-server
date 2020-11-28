@@ -66,7 +66,7 @@ def parse_json_data(leisure_type: str):
 def parse_csv_data_events():
     donwload_open_data_csv(events2020CSV)
     result = {}
-    with open('events2020.csv', mode='r') as csv_file:
+    with open('events2020.csv', mode='r', encoding='utf8') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
 
         keys_list = list(next(csv_reader))
