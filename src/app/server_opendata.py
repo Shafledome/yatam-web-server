@@ -83,7 +83,7 @@ def get_leisure_by_type_and_coordinates(leisure_type, latitude, longitude):
     return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 # Returns JSON with data about an event by its activity ID
-@app.route('/events/activity_id/<int:activity_id>')
+@app.route('/events/activity_id/<string:activity_id>')
 def get_events_by_activity_id(activity_id):
     events = EventsList()
     result = events.get_by_activity_id(activity_id)
@@ -103,11 +103,11 @@ def get_events_by_name(events_name):
     if not isinstance(result, dict):
         status = 404
         if result is None:
-            result = {'error': f'Error 404. Traffic cut with name: {events_name} was not found.'}
+            result = {'error': f'Error 404. Event with name: {events_name} was not found.'}
     return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 # Returns JSON with data about an event by its event ID
-@app.route('/events/event_id/<int:events_id>')
+@app.route('/events/event_id/<string:events_id>')
 def get_events_by_events_id(events_id):
     events = EventsList()
     result = events.get_by_activity_id(events.get_id_by_event_id(events_id))
@@ -115,11 +115,11 @@ def get_events_by_events_id(events_id):
     if not isinstance(result, dict):
         status = 404
         if result is None:
-            result = {'error': f'Error 404. Traffic cut with name: {events_id} was not found.'}
+            result = {'error': f'Error 404. Event with name: {events_id} was not found.'}
     return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 # Returns JSON with data about an event by its location id
-@app.route('/events/location/<int:location_id>')
+@app.route('/events/location/<string:location_id>')
 def get_events_by_location_id(location_id):
     events = EventsList()
     result = events.get_by_activity_id(events.get_id_by_location_id(location_id))
@@ -127,7 +127,7 @@ def get_events_by_location_id(location_id):
     if not isinstance(result, dict):
         status = 404
         if result is None:
-            result = {'error': f'Error 404. Traffic cut with name: {location_id} was not found.'}
+            result = {'error': f'Error 404. Event with name: {location_id} was not found.'}
     return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 # Returns JSON with data about an event by its category
@@ -139,8 +139,20 @@ def get_events_by_category(category):
     if not isinstance(result, dict):
         status = 404
         if result is None:
-            result = {'error': f'Error 404. Traffic cut with name: {category} was not found.'}
+            result = {'error': f'Error 404. Event with name: {category} was not found.'}
     return Response(json.dumps(result), mimetype=mimetype, status=status)
+
+@app.route('/events/all')
+def get_all():
+    events = EventsList()
+    result = events.get_all()
+    status = 200
+    if not isinstance(result, dict):
+        status = 404
+        if result is None:
+            result = {'error': f'Error 404'}
+    return Response(json.dumps(result), mimetype=mimetype, status=status)
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=30006, debug=True)

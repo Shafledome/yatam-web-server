@@ -12,8 +12,8 @@ class EventsList:
     def get_all(self):
         return self.events
 
-    def get_by_activity_id(self, activity_id: int):
-        if isinstance(activity_id, int):
+    def get_by_activity_id(self, activity_id: str):
+        if isinstance(activity_id, str):
             return self.events.get(activity_id)
         else:
             return activity_id
@@ -24,13 +24,13 @@ class EventsList:
                 return e_id
         return f'"{event_name}" not found in events 2020.'
 
-    def get_id_by_event_id(self, event_id: int):
+    def get_id_by_event_id(self, event_id: str):
         for e_id in self.events:
             if self.events.get(e_id)['ID_EVENTO'] == event_id:
                 return e_id
         return f'An event with the ID: {event_id} has not been found.'
     
-    def get_id_by_location_id(self, location_id: int):
+    def get_id_by_location_id(self, location_id: str):
         for e_id in self.events:
             if self.events.get(e_id)['ID_LUGAR'] == location_id:
                 return e_id
