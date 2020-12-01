@@ -36,7 +36,7 @@ class TrophyList:
 
     @staticmethod
     def search_by_name(name):
-        return db.search_values('trophies', 'name', name)
+        return db.get_dict('trophies', 'name', name)
 
     @staticmethod
     def set_name(key, name):

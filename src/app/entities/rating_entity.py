@@ -55,7 +55,7 @@ class Rating:
 
     @staticmethod
     def search_by_user(user):
-        r = db.search_values('ratings', 'user', user)
+        r = db.get_dict('ratings', 'user', user)
         if r is not None:
             return r
         else:
@@ -63,7 +63,7 @@ class Rating:
 
     @staticmethod
     def search_by_leisure(leisure):
-        r = db.search_values('ratings', 'leisure', leisure)
+        r = db.get_dict('ratings', 'leisure', leisure)
         if r is not None:
             return r
         else:

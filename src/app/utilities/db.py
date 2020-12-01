@@ -100,7 +100,7 @@ def update(entry, key, values):
 def delete(entry, key):
     db.child(entry).child(key).remove()
 
-
+'''
 def search_key(entry, attribute, value):
     return search(entry, attribute, value, 'key')
 
@@ -121,6 +121,7 @@ def search(entry, attribute, value, ret):
         else:
             data = None
     return data
+'''
 
 
 def search_by_key(entry, key):

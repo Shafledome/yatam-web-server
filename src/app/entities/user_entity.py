@@ -13,6 +13,7 @@ class User:
             self.email = u['email']
             self.username = u['username']
             self.password = u['password']
+            self.ratings = db.get_dict('ratings', 'user', key)
         # e.g. __init__(email=email, username=username, password=password)
         elif key is None and email is not None and username is not None and password is not None:
             db.create('users', {'email': email, 'username': username, 'password': password})
@@ -30,8 +31,7 @@ class User:
         return self.password
 
     def get_ratings(self):
-        key = db.search_key('users', 'email', self.email)
-        r = db.get_dict('ratings', 'user', key)
+        r = self.ratings
         if r is None:
             return f'No ratings were found with user : "{self.username}".'
         else:
@@ -50,7 +50,7 @@ class User:
 
     @staticmethod
     def search_by_email(email):
-        r = db.search_values('users', 'email', email)
+        r = db.get_dict('users', 'email', email)
         if r is None:
             return f'No user has been found with email : "{email}".'
         else:
@@ -58,7 +58,7 @@ class User:
 
     @staticmethod
     def search_by_username(username):
-        r = db.search_values('users', 'username', username)
+        r = db.get_dict('users', 'username', username)
         if r is None:
             return f'No user has been found with username : "{username}".'
         else:
