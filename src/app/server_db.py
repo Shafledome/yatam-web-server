@@ -207,7 +207,7 @@ def update_user_password():
     user = User.search_by_key(user_key)
     if isinstance(user, dict):
         user = User(user_key)
-        user.set_password(password)
+        user.set_password(user_key, password)
         result = {'result': f'Status 200. The user: {user_key} was updated with password: {password}.'}
     else:
         status = 400
