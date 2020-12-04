@@ -43,16 +43,16 @@ class Trophy:
 
     @staticmethod
     def search_by_user(user):
-        return db.get_dict('trophies', 'user', user)
+        return db.get_dict('trophy', 'user', user)
 
     @staticmethod
     def search_by_trophy(trophy):
-        return db.get_dict('trophies', 'trophy', trophy)
+        return db.get_dict('trophy', 'trophy', trophy)
 
     @staticmethod
     def set_user(key, user):
-        db.update('trophies', key, {'user': user})
+        db.update('trophy', key, {'user': user})
 
     @staticmethod
     def set_trophy(key, trophy):
-        db.update('trophies', key, {'trophy': trophy})
+        db.update('trophy', key, {'trophy': trophy})

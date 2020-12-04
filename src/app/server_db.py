@@ -4,6 +4,7 @@ from flask_cors import CORS, cross_origin
 from entities.rating_entity import Rating
 from entities.leisures_entity import LeisureList
 from entities.user_entity import User
+from entities.trophy import Trophy
 
 import json
 
@@ -173,6 +174,16 @@ def get_trophies_by_name(name):
     if not isinstance(trophy, dict):
         status = 404
         trophy = f'Error 404. Trophy with name: {name} not found'
+    return Response(json.dumps(trophy), mimetype=mimetype, status=status)
+
+
+@app.route('/trophy/<string:user>')
+def get_trophy_by_user(user):
+    trophy = Trophy.search_by_user(user)
+    status = 200
+    if not isinstance(trophy, dict):
+        status = 404
+        trophy = f'Error 404. Trophy with name: {user} not found'
     return Response(json.dumps(trophy), mimetype=mimetype, status=status)
 
 
