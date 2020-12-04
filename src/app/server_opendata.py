@@ -37,7 +37,7 @@ leisures_type = [
 def get_all_leisures():
     result = {}
     for leisure_type in leisures_type:
-        leisures = LeisureList(leisure_type.upper()).get_all()
+        leisures = {leisure_type: LeisureList(leisure_type.upper()).get_all()}
         result = {** result, **leisures}
     status = 200
     if not isinstance(result, dict):
@@ -69,6 +69,23 @@ def get_leisure_by_type_and_name(leisure_type, leisure_name):
         status = 404
         if result is None:
             result = {'error': f'Error 404. ID: {leisure_name} was not found.'}
+    return Response(json.dumps(result), mimetype=mimetype, status=status)
+
+
+# Returns JSON with data about a leisure by its id
+@app.route('/leisures/id/<int:leisure_id>')
+def get_leisure_by_id(leisure_id):
+    result = None
+    for leisure_type in leisures_type:
+        ls = LeisureList(leisure_type)
+        result = ls.get_by_id(leisure_id)
+        if isinstance(result, dict):
+            break
+    status = 200
+    if not isinstance(result, dict):
+        status = 500
+        if result is None:
+            result = {'error': f'Error 500. Internal server error.'}
     return Response(json.dumps(result), mimetype=mimetype, status=status)
 
 
