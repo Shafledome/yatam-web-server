@@ -8,6 +8,7 @@ from entities.user_entity import User
 import json
 
 app = Flask(__name__)
+CORS(app)
 mimetype = 'application/json'
 
 leisures_type = [
