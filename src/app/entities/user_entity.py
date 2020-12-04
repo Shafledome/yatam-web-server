@@ -81,5 +81,5 @@ class User:
         db.update('users', key, {'username': username})
 
     @staticmethod
-    def set_password(self, key, password):
+    def set_password(key, password):
         db.update('users', key, {'password': password})
