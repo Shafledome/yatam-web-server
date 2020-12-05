@@ -167,7 +167,17 @@ def get_ratings_by_leisure(leisure_id):
         return Response(json.dumps(ratings), mimetype=mimetype, status=status)
 
 
-@app.route('/trophies/<string:name>')
+@app.route('/trophies/key/<string:key>')
+def get_trophies_by_key(key):
+    trophy = TrophyList.search_by_trophy_key(key)
+    status = 200
+    if not isinstance(trophy, dict):
+        status = 404
+        trophy = f'Error 404. Trophy with id: {key} not found'
+    return Response(json.dumps(trophy), mimetype=mimetype, status=status)
+
+
+@app.route('/trophies/name/<string:name>')
 def get_trophies_by_name(name):
     trophy = TrophyList.search_by_name(name)
     status = 200
