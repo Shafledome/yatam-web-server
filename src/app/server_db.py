@@ -152,19 +152,23 @@ def get_ratings_by_user(user_key):
 
 @app.route('/ratings/leisure/<int:leisure_id>')
 def get_ratings_by_leisure(leisure_id):
+    leisure = None
     for leisure_type in leisures_type:
         leisure = LeisureList(leisure_type).get_by_id(leisure_id)
         status = 200
-        if not isinstance(leisure, dict):
+        print(leisure)
+        if isinstance(leisure, dict):
+            break
+    if not isinstance(leisure, dict):
+        status = 404
+        leisure = f'Error 404. Leisure with id: {leisure_id} not found'
+        return Response(json.dumps(leisure), mimetype=mimetype, status=status)
+    else:
+        ratings = Rating.search_by_leisure(leisure['id'])
+        if not bool(ratings):
             status = 404
-            leisure = f'Error 404. Leisure with id: {leisure_id} not found'
-            return Response(json.dumps(leisure), mimetype=mimetype, status=status)
-        else:
-            ratings = Rating.search_by_leisure(leisure['id'])
-            if not bool(ratings):
-                status = 404
-                ratings = f'Error 404. Leisure with id: {leisure_id} has not ratings yet'
-        return Response(json.dumps(ratings), mimetype=mimetype, status=status)
+            ratings = f'Error 404. Leisure with id: {leisure_id} has not ratings yet'
+    return Response(json.dumps(ratings), mimetype=mimetype, status=status)
 
 
 @app.route('/trophies/key/<string:key>')
