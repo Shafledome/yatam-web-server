@@ -14,7 +14,9 @@ class Trophy:
             self.user = t['user']
             self.date = t['date']
         elif key is None and trophy is not None and user is not None:
-            date = datetime.datetime.now().strftime("%c")
+            #date = datetime.datetime.now().strftime("%c")
+            d = datetime.datetime.now()
+            date = d.strftime("%x") + ' ' + d.strftime("%X")
             db.create('trophies', {'trophy': trophy, 'user': user, 'date': date})
             self.trophy = trophy
             self.user = user
