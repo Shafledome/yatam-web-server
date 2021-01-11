@@ -362,6 +362,16 @@ def delete_trophy_by_id():
         result = {'Error': f'Error 400. Bad request. The provided data is not correct.'}
     return Response(json.dumps(result), mimetype=mimetype, status=status)
 
+@app.route('/trophy/all')
+def get_trophy_all():
+    if __name__ == "__main__":
+        trophies = Trophy.get_dict()
+        status=200
+    if not isinstance(trophies, dict):
+        status = 404
+        trophies = f'Error 404. No trophies found'
+    return Response(json.dumps(trophies), mimetype=mimetype, status=status)
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=30006, debug=True)
